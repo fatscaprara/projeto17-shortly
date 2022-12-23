@@ -1,7 +1,6 @@
 import connection from "../database/database.js";
 
-export async function tokenValidate(req, res, next) {
-  const { id } = req.params;
+export async function tokenUserValidate(req, res, next) {
   const authorization = req.headers.authorization;
   const token = authorization?.replace("Bearer ", "");
 
@@ -40,23 +39,7 @@ export async function tokenValidate(req, res, next) {
       return res.sendStatus(404);
     }
 
-    const { rows: url } = await connection.query(
-      `
-    SELECT
-      *
-    FROM
-      shortens
-    WHERE
-      id = $1`,
-      [id]
-    );
-
-    if (sessions[0].user_id !== url[0].user_id) {
-      return res.sendStatus(401);
-    }
-
-    req.urlId = url[0].id;
-    req.userId = sessions[0].user_id;
+    req.user = users[0];
     next();
   } catch (error) {
     console.log(error);

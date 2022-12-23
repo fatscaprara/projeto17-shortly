@@ -6,12 +6,14 @@ dotenv.config();
 
 import authRouter from "./routes/authRouter.js";
 import urlRouter from "./routes/urlRouter.js";
+import userRouter from "./routes/userRouter.js";
 
 const app = express();
 app.use(express.json());
 app.use(cors());
 app.use(authRouter);
 app.use(urlRouter);
+app.use(userRouter);
 
 app.get("/", async (req, res) => {
   const result = await connection.query("SELECT * FROM users;");
