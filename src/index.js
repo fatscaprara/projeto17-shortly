@@ -4,12 +4,14 @@ import dotenv from "dotenv";
 import connection from "./database/database.js";
 dotenv.config();
 
-import authRouter from "./routes/authRoutes.js";
+import authRouter from "./routes/authRouter.js";
+import urlRouter from "./routes/urlRouter.js";
 
 const app = express();
 app.use(express.json());
 app.use(cors());
 app.use(authRouter);
+app.use(urlRouter);
 
 app.get("/", async (req, res) => {
   const result = await connection.query("SELECT * FROM users;");
