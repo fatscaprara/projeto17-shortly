@@ -28,7 +28,11 @@ export async function postShorten(req, res) {
 export async function getUrlById(req, res) {
   const { dataShortUrl } = req;
 
-  res.send(dataShortUrl);
+  res.send({
+    id: dataShortUrl.id,
+    shortUrl: dataShortUrl.short_url,
+    url: dataShortUrl.url,
+  });
 }
 
 export async function openShortUrl(req, res) {
@@ -74,6 +78,25 @@ export async function openShortUrl(req, res) {
     }
 
     res.redirect(dataShortUrl.url);
+  } catch (err) {
+    console.log(err);
+    res.sendStatus(500);
+  }
+}
+
+export async function deleteUrl(req, res) {
+  const { urlId } = req;
+
+  try {
+    await connection.query(
+      `
+    DELETE FROM
+      shortens
+    WHERE
+      id = $1`,
+      [urlId]
+    );
+    res.sendStatus(204);
   } catch (err) {
     console.log(err);
     res.sendStatus(500);

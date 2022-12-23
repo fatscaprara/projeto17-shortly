@@ -3,8 +3,6 @@ import connection from "../database/database.js";
 export async function shortenUrlByIdValidate(req, res, next) {
   const { id } = req.params;
 
-  console.log(id);
-
   try {
     const { rows: findShortenUrl } = await connection.query(
       `
