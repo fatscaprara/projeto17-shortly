@@ -24,3 +24,52 @@ export async function postShorten(req, res) {
     res.sendStatus(500);
   }
 }
+
+export async function openShortUrl(req, res) {
+  const { dataShortUrl } = req;
+
+  try {
+    const { rows: findVisits } = await connection.query(
+      `
+      SELECT
+        *
+      FROM
+        visits
+      WHERE
+        short_id = $1
+      ;
+    `,
+      [dataShortUrl.id]
+    );
+
+    if (findVisits.length) {
+      await connection.query(
+        `
+        UPDATE
+          visits
+        SET
+          visit = visit + 1
+        WHERE
+          short_id = $1
+      `,
+        [dataShortUrl.id]
+      );
+    } else {
+      await connection.query(
+        `
+        INSERT INTO
+          visits (short_id, visit)
+        VALUES
+          ($1, $2)
+        ;
+      `,
+        [dataShortUrl.id, 1]
+      );
+    }
+
+    res.redirect(dataShortUrl.url);
+  } catch (err) {
+    console.log(err);
+    res.sendStatus(500);
+  }
+}
