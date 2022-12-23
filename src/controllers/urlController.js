@@ -25,6 +25,12 @@ export async function postShorten(req, res) {
   }
 }
 
+export async function getUrlById(req, res) {
+  const { dataShortUrl } = req;
+
+  res.send(dataShortUrl);
+}
+
 export async function openShortUrl(req, res) {
   const { dataShortUrl } = req;
 
