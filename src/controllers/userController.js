@@ -32,3 +32,33 @@ export async function getUser(req, res) {
     res.sendStatus(500);
   }
 }
+
+export async function getRanking(req, res) {
+  try {
+    const { rows: ranking } = await connection.query(`
+    SELECT
+      users.id, users.name, 
+    COUNT(shortens.short_url) AS "linksCount",
+    SUM(visits.visit) AS "visitCount" 
+    FROM
+      users 
+    LEFT JOIN
+      shortens
+    ON
+      shortens.user_id = users.id
+    JOIN
+      visits
+    ON
+      shortens.id = visits.short_id
+    GROUP BY
+      users.id 
+    ORDER BY
+      "visitCount" DESC
+    LIMIT 10
+    ;`);
+
+    res.status(200).send(ranking[0]);
+  } catch (err) {
+    console.log(err);
+  }
+}
