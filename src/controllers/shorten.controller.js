@@ -39,3 +39,31 @@ export async function postShorten(req, res) {
     return res.sendStatus(500);
   }
 }
+
+export async function getUrlById(req, res) {
+  try {
+    const { id: urlId } = req.params;
+
+    const shorten = await db.query(
+      `
+      SELECT
+        *
+      FROM
+        shortens
+      WHERE
+        id = $1
+      ;
+    `,
+      [urlId]
+    );
+
+    if (!shorten.rowCount) return res.sendStatus(404);
+
+    const { id, shortUrl, url } = shorten.rows[0];
+
+    res.status(200).send({ id, shortUrl, url });
+  } catch (err) {
+    console.log(err);
+    return res.sendStatus(500);
+  }
+}
