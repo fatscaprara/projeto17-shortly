@@ -67,3 +67,42 @@ export async function getUrlById(req, res) {
     return res.sendStatus(500);
   }
 }
+
+export async function redirectUrl(req, res) {
+  try {
+    const { shortUrl } = req.params;
+
+    const shorten = await db.query(
+      `
+      SELECT
+        *
+      FROM
+        shortens
+      WHERE
+        "shortUrl" = $1
+      ;
+    `,
+      [shortUrl]
+    );
+
+    if (!shorten.rowCount) return res.sendStatus(404);
+
+    await db.query(
+      `
+      UPDATE
+        shortens
+      SET
+        "visitCount" = "visitCount" + 1
+      WHERE
+        id = $1
+      ;
+    `,
+      [shorten.rows[0].id]
+    );
+
+    res.redirect(shorten.rows[0].url);
+  } catch (err) {
+    console.log(err);
+    return res.sendStatus(500);
+  }
+}
