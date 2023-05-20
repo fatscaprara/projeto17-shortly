@@ -106,3 +106,43 @@ export async function redirectUrl(req, res) {
     return res.sendStatus(500);
   }
 }
+
+export async function deleteUrl(req, res) {
+  try {
+    const { user } = req;
+    const { id: shortId } = req.params;
+
+    const shorten = await db.query(
+      `
+      SELECT
+        *
+      FROM
+        shortens
+      WHERE
+        id = $1
+      ;
+    `,
+      [shortId]
+    );
+
+    if (!shorten.rowCount) return res.sendStatus(404);
+
+    if (shorten.rows[0].userId !== user.id) return res.sendStatus(401);
+
+    await db.query(
+      `
+      DELETE FROM
+        shortens
+      WHERE
+        id = $1
+      ;
+    `,
+      [shortId]
+    );
+
+    res.sendStatus(204);
+  } catch (err) {
+    console.log(err);
+    return res.sendStatus(500);
+  }
+}
