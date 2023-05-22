@@ -56,7 +56,7 @@ export async function signIn(req, res) {
       [userId, token]
     );
 
-    res.status(200).send(token);
+    res.status(200).send({ token });
   } catch (err) {
     console.log(err);
     return res.sendStatus(500);

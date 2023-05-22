@@ -28,7 +28,7 @@ CREATE TABLE public.sessions (
     id integer NOT NULL,
     token text NOT NULL,
     "userId" integer,
-    "createAt" date DEFAULT now()
+    "createdAt" date DEFAULT now()
 );
 
 
