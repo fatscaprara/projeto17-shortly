@@ -28,7 +28,7 @@ CREATE TABLE public.sessions (
     id integer NOT NULL,
     token text NOT NULL,
     "userId" integer,
-    "createdAt" date DEFAULT now()
+    "createdAt" timestamp without time zone DEFAULT CURRENT_TIMESTAMP
 );
 
 
@@ -62,7 +62,7 @@ CREATE TABLE public.shortens (
     "shortUrl" text NOT NULL,
     "userId" integer,
     "visitCount" integer DEFAULT 0,
-    "createAt" date DEFAULT now()
+    "createdAt" timestamp without time zone DEFAULT CURRENT_TIMESTAMP
 );
 
 
@@ -95,7 +95,7 @@ CREATE TABLE public.users (
     name text NOT NULL,
     email text NOT NULL,
     password text NOT NULL,
-    "createAt" date DEFAULT now()
+    "createdAt" timestamp without time zone DEFAULT CURRENT_TIMESTAMP
 );
 
 
@@ -144,35 +144,35 @@ ALTER TABLE ONLY public.users ALTER COLUMN id SET DEFAULT nextval('public.users_
 -- Data for Name: sessions; Type: TABLE DATA; Schema: public; Owner: -
 --
 
-INSERT INTO public.sessions VALUES (6, '1f90bb26-ec2b-4ac3-ae23-00d5bb7ae6a8', 9, '2023-05-22');
-INSERT INTO public.sessions VALUES (7, '117b6b31-20f5-4423-a606-dfcffd3b994d', 6, '2023-05-22');
-INSERT INTO public.sessions VALUES (8, 'ccbc93be-6a29-49cf-aa58-475cb9c2f3a3', 8, '2023-05-22');
-INSERT INTO public.sessions VALUES (9, '8070c932-ab54-4368-b682-9416de0e1d03', 7, '2023-05-22');
+INSERT INTO public.sessions VALUES (6, '1f90bb26-ec2b-4ac3-ae23-00d5bb7ae6a8', 9, '2023-05-22 10:43:59.10085');
+INSERT INTO public.sessions VALUES (7, '117b6b31-20f5-4423-a606-dfcffd3b994d', 6, '2023-05-22 10:43:59.10085');
+INSERT INTO public.sessions VALUES (8, 'ccbc93be-6a29-49cf-aa58-475cb9c2f3a3', 8, '2023-05-22 10:43:59.10085');
+INSERT INTO public.sessions VALUES (9, '8070c932-ab54-4368-b682-9416de0e1d03', 7, '2023-05-22 10:43:59.10085');
 
 
 --
 -- Data for Name: shortens; Type: TABLE DATA; Schema: public; Owner: -
 --
 
-INSERT INTO public.shortens VALUES (12, 'https://www.uol.com', 'NwG-8qcI', 8, 0, '2023-05-22');
-INSERT INTO public.shortens VALUES (13, 'https://www.uol.com', 'Apqyi5AF', 7, 0, '2023-05-22');
-INSERT INTO public.shortens VALUES (4, 'https://www.uol.com', '_BmCvGcN', 9, 4, '2023-05-22');
-INSERT INTO public.shortens VALUES (5, 'https://www.uol.com', 'spEC41IK', 9, 3, '2023-05-22');
-INSERT INTO public.shortens VALUES (6, 'https://www.uol.com', 'GTEzHp1r', 9, 1, '2023-05-22');
-INSERT INTO public.shortens VALUES (7, 'https://www.uol.com', 'MQ1yP07D', 9, 1, '2023-05-22');
-INSERT INTO public.shortens VALUES (8, 'https://www.uol.com', 'iIiQ_04d', 6, 1, '2023-05-22');
-INSERT INTO public.shortens VALUES (9, 'https://www.uol.com', 'RLoRvvyL', 6, 3, '2023-05-22');
-INSERT INTO public.shortens VALUES (11, 'https://www.uol.com', 'rC6ueWAU', 8, 1, '2023-05-22');
+INSERT INTO public.shortens VALUES (12, 'https://www.uol.com', 'NwG-8qcI', 8, 0, '2023-05-22 10:45:46.971864');
+INSERT INTO public.shortens VALUES (13, 'https://www.uol.com', 'Apqyi5AF', 7, 0, '2023-05-22 10:45:46.971864');
+INSERT INTO public.shortens VALUES (4, 'https://www.uol.com', '_BmCvGcN', 9, 4, '2023-05-22 10:45:46.971864');
+INSERT INTO public.shortens VALUES (5, 'https://www.uol.com', 'spEC41IK', 9, 3, '2023-05-22 10:45:46.971864');
+INSERT INTO public.shortens VALUES (6, 'https://www.uol.com', 'GTEzHp1r', 9, 1, '2023-05-22 10:45:46.971864');
+INSERT INTO public.shortens VALUES (7, 'https://www.uol.com', 'MQ1yP07D', 9, 1, '2023-05-22 10:45:46.971864');
+INSERT INTO public.shortens VALUES (8, 'https://www.uol.com', 'iIiQ_04d', 6, 1, '2023-05-22 10:45:46.971864');
+INSERT INTO public.shortens VALUES (9, 'https://www.uol.com', 'RLoRvvyL', 6, 3, '2023-05-22 10:45:46.971864');
+INSERT INTO public.shortens VALUES (11, 'https://www.uol.com', 'rC6ueWAU', 8, 1, '2023-05-22 10:45:46.971864');
 
 
 --
 -- Data for Name: users; Type: TABLE DATA; Schema: public; Owner: -
 --
 
-INSERT INTO public.users VALUES (6, 'Joaquim', 'joaquim@driven.com.br', '$2b$10$5Rzo6O.XRd/RbexCQlcUROoQdVLfMgXAuxPA3x1bFZ160TADbwWwu', '2023-05-22');
-INSERT INTO public.users VALUES (7, 'José', 'jose@driven.com.br', '$2b$10$UCzomZ4AhBoenyyN7UFTp.e.RrFQW5Q.FMaQa6cM3IUbGP.e7VmP6', '2023-05-22');
-INSERT INTO public.users VALUES (8, 'Pedro', 'pedro@driven.com.br', '$2b$10$CdV2jgkqs9YrB3LngWywUOiX/tyGIXgjhzurlecLHfOm8Dv0ehtLS', '2023-05-22');
-INSERT INTO public.users VALUES (9, 'Fabio', 'fabio@driven.com.br', '$2b$10$CCY3LMaQuEBVOrGwLpRU1O6z7.MtU/KWCEvimefsm6I8exlzkY4IK', '2023-05-22');
+INSERT INTO public.users VALUES (6, 'Joaquim', 'joaquim@driven.com.br', '$2b$10$5Rzo6O.XRd/RbexCQlcUROoQdVLfMgXAuxPA3x1bFZ160TADbwWwu', '2023-05-22 10:45:14.303625');
+INSERT INTO public.users VALUES (7, 'José', 'jose@driven.com.br', '$2b$10$UCzomZ4AhBoenyyN7UFTp.e.RrFQW5Q.FMaQa6cM3IUbGP.e7VmP6', '2023-05-22 10:45:14.303625');
+INSERT INTO public.users VALUES (8, 'Pedro', 'pedro@driven.com.br', '$2b$10$CdV2jgkqs9YrB3LngWywUOiX/tyGIXgjhzurlecLHfOm8Dv0ehtLS', '2023-05-22 10:45:14.303625');
+INSERT INTO public.users VALUES (9, 'Fabio', 'fabio@driven.com.br', '$2b$10$CCY3LMaQuEBVOrGwLpRU1O6z7.MtU/KWCEvimefsm6I8exlzkY4IK', '2023-05-22 10:45:14.303625');
 
 
 --
