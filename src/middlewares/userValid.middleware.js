@@ -8,7 +8,7 @@ export function userValid(req, res, next) {
 
   const passwordAreSame = user.password === user.confirmPassword;
 
-  if (!passwordAreSame) res.sendStatus(422);
+  if (!passwordAreSame) return res.sendStatus(422);
 
   req.user = user;
   next();
